@@ -1,0 +1,198 @@
+% Autor: Marvin Ferber
+\documentclass[14pt,ngerman]{extarticle}
+\usepackage{amsmath, amssymb, datetime, calculator, enumitem, tikz}
+\usepackage[a4paper,margin=1in,top=2.5cm]{geometry}
+\usepackage{pgf, fp}
+\usepackage[ngerman]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{tikz}
+\usepackage{xparse}
+\usepackage{xspace}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\leadingzero}[1]{\ifnum #1<10 0#1\else#1\fi}    
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Zufallsgenerator initialisieren
+\def\TotalSecondsMinute{}%
+\def\TotalSeconds{}%
+\MULTIPLY{\currentminute}{60}{\TotalSecondsMinute}%
+\ADD{\TotalSecondsMinute}{\currentsecond}{\TotalSeconds}%
+\pgfmathsetseed{\TotalSeconds}%
+% Globale Variablen
+\pgfmathsetmacro{\Aglob}{random(2,5)}
+\pgfmathsetmacro{\Bglob}{random(2,5)}
+\pgfmathsetmacro{\Cglob}{random(2,5)}
+\pgfmathsetmacro{\Dglob}{random(1,7)}
+
+\newcommand\clock[2]{%
+    \begin{tikzpicture}[line cap=round,line width=3pt]
+        \filldraw [fill=lightgray!30] (0,0) circle (2cm);
+        \foreach \angle / \label in
+            {0/3, 30/2, 60/1, 90/12, 120/11, 150/10, 180/9,
+                210/8, 240/7, 270/6, 300/5, 330/4}
+            {
+                \draw[line width=1pt] (\angle:1.8cm) -- (\angle:2cm);
+                \draw (\angle:1.4cm) node{\textsf{\label}};
+            }
+        \foreach \angle in {0,90,180,270}
+        \draw[line width=2pt] (\angle:1.6cm) -- (\angle:2cm);
+        \draw[rotate=90,line width=2pt] (0,0) -- (-#1*30-#2*30/60:0.7cm); % hours
+        \draw[rotate=90,line width=1.5pt] (0,0) -- (-#2*6:1cm); % minutes
+        %\draw[rotate=90,thin,red] (0,0) -- (-#3*6:1.2cm); % seconds
+        \path [fill=red] (0,0) circle (2pt);
+        %
+    \end{tikzpicture}%
+}
+\newcommand\clockempty{%
+    \begin{tikzpicture}[line cap=round,line width=3pt]
+        \filldraw [fill=lightgray!30] (0,0) circle (2cm);
+        \foreach \angle / \label in
+            {0/3, 30/2, 60/1, 90/12, 120/11, 150/10, 180/9,
+                210/8, 240/7, 270/6, 300/5, 330/4}
+            {
+                \draw[line width=1pt] (\angle:1.8cm) -- (\angle:2cm);
+                \draw (\angle:1.4cm) node{\textsf{\label}};
+            }
+        \foreach \angle in {0,90,180,270}
+        \draw[line width=2pt] (\angle:1.6cm) -- (\angle:2cm);
+        %\draw[rotate=90,line width=2pt] (0,0) -- (-#1*30-#2*30/60:0.7cm); % hours
+        %\draw[rotate=90,line width=1.5pt] (0,0) -- (-#2*6:1cm); % minutes
+        %\draw[rotate=90,thin,red] (0,0) -- (-#3*6:1.2cm); % seconds
+        \path [fill=red] (0,0) circle (2pt);
+        %
+    \end{tikzpicture}%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\clockrandomviertel{
+    \pgfmathsetmacro{\A}{random(0,11)}
+    \pgfmathsetmacro{\B}{random(0,3)}
+    %\MULTIPLY{\A}{10}{\A}
+    \MULTIPLY{\B}{15}{\B}
+    \FPtrunc\A{\A}{0}
+    \FPtrunc\B{\B}{0}
+    \clock{\A}{\B}
+}
+
+\newcommand\clockrandomfuenfer{
+    \pgfmathsetmacro{\A}{random(0,11)}
+    \pgfmathsetmacro{\B}{random(0,11)}
+    %\MULTIPLY{\A}{10}{\A}
+    \MULTIPLY{\B}{5}{\B}
+    \FPtrunc\A{\A}{0}
+    \FPtrunc\B{\B}{0}
+    \clock{\A}{\B}
+}
+
+\newcommand\timerandomfuenfer{
+    \pgfmathsetmacro{\A}{random(0,11)}
+    \pgfmathsetmacro{\B}{random(0,11)}
+    %\MULTIPLY{\A}{10}{\A}
+    \MULTIPLY{\B}{5}{\B}
+    \FPtrunc\A{\A}{0}
+    \FPtrunc\B{\B}{0}
+    \leadingzero{\A}:\leadingzero{\B}
+}
+
+\newcommand\timerandomviertel{
+    \pgfmathsetmacro{\A}{random(0,11)}
+    \pgfmathsetmacro{\B}{random(0,3)}
+    %\MULTIPLY{\A}{10}{\A}
+    \MULTIPLY{\B}{15}{\B}
+    \FPtrunc\A{\A}{0}
+    \FPtrunc\B{\B}{0}
+    \leadingzero{\A}:\leadingzero{\B}
+}
+
+\newcommand\stundenrandom{
+    \pgfmathsetmacro{\A}{random(1,4)}
+    \FPtrunc\A{\A}{0}
+    \A
+}
+
+\newcommand\minutenrandom{
+    \pgfmathsetmacro{\A}{random(0,11)}
+    \MULTIPLY{\A}{5}{\A}
+    \FPtrunc\A{\A}{0}
+    \A
+}
+
+\newcommand\timerandomkuchen{
+    %\pgfmathsetmacro{\A}{random(0,11)}
+    \pgfmathsetmacro{\B}{random(0,11)}
+    %\MULTIPLY{\A}{10}{\A}
+    \MULTIPLY{\B}{5}{\B}
+    %\FPtrunc\A{\A}{0}
+    \FPtrunc\B{\B}{0}
+    11:\leadingzero{\B}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{
+    \Huge Arbeitsblatt Uhr 
+    \vspace{-1cm}
+    \date{\today}
+    \vspace{-2cm}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\begin{center}
+    \Huge Arbeitsblatt Uhr 
+    \\
+    \today
+\end{center}        
+%\maketitle
+\subsection*{Lies ab!}
+\begin{tabular}{ c c c }
+    \clock{2}{15} & \clockrandomviertel & \clockrandomviertel \\
+    02:15 & \verb|__:__| & \verb|__:__|  \\
+    14:15 & \verb|__:__| & \verb|__:__|  \\
+    viertel 3 & \textunderscore\textunderscore\textunderscore\textunderscore & \textunderscore\textunderscore\textunderscore\textunderscore \\
+    & & \\
+\end{tabular}
+\\
+\begin{tabular}{ c c c }
+    \clockrandomfuenfer & \clockrandomfuenfer & \clockrandomfuenfer \\
+    \verb|__:__| & \verb|__:__| & \verb|__:__|  \\
+    \verb|__:__| & \verb|__:__| & \verb|__:__|  \\
+    \textunderscore\textunderscore\textunderscore\textunderscore & \textunderscore\textunderscore\textunderscore\textunderscore & \textunderscore\textunderscore\textunderscore\textunderscore \\
+    & & \\
+\end{tabular}
+\\
+\begin{tabular}{ c c c }
+    \clockrandomfuenfer & \clockrandomfuenfer & \clockrandomfuenfer \\
+    \verb|__:__| & \verb|__:__| & \verb|__:__|  \\
+    \verb|__:__| & \verb|__:__| & \verb|__:__|  \\
+    \textunderscore\textunderscore\textunderscore\textunderscore & \textunderscore\textunderscore\textunderscore\textunderscore & \textunderscore\textunderscore\textunderscore\textunderscore \\
+    & & \\
+\end{tabular}
+
+\pagebreak
+\subsection*{Zeichne ein!}
+\begin{tabular}{ c c c }
+    \clockempty & \clockempty & \clockempty \\
+    \timerandomviertel & \timerandomviertel & \timerandomviertel  \\
+    \verb|__:__| & \verb|__:__| & \verb|__:__|  \\
+    \textunderscore\textunderscore\textunderscore\textunderscore & \textunderscore\textunderscore\textunderscore\textunderscore & \textunderscore\textunderscore\textunderscore\textunderscore \\
+    & & \\
+\end{tabular}
+\\
+\begin{tabular}{ c c c }
+    \clockempty & \clockempty & \clockempty \\
+    \timerandomfuenfer & \timerandomfuenfer & \timerandomfuenfer  \\
+    \verb|__:__| & \verb|__:__| & \verb|__:__|  \\
+    \textunderscore\textunderscore\textunderscore\textunderscore & \textunderscore\textunderscore\textunderscore\textunderscore & \textunderscore\textunderscore\textunderscore\textunderscore \\
+    & & \\
+\end{tabular}
+
+\subsection*{Berechne die Dauer!}
+\subsubsection*{a)}
+Ein Mann steigt um 14:10 in den Zug. Er fährt\stundenrandom\xspace Stunden und\minutenrandom\xspace Minuten. Wann kommt er an?
+
+\subsubsection*{b)}
+Eine Frau bäckt Kuchen. Sie stellt den Kuchen um 10:35 Uhr in den Backofen. Um\timerandomkuchen\xspace Uhr ist der Kuchen fertig. Wie lange hat der Kuchen gebacken? 
+
+\subsubsection*{c)}
+Oma Eierschecke besucht ihre Enkel. Sie kommt um 19:45 Uhr am Banhof an. Ihr Zug fuhr\stundenrandom\xspace Stunden und\minutenrandom\xspace Minuten. Wann ist sie mit dem Zug gestartet?
+  %
+\end{document}

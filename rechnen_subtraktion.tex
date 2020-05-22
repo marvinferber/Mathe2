@@ -1,0 +1,116 @@
+% Autor: Marvin Ferber
+\documentclass[14pt,ngerman]{extarticle}
+\usepackage{amsmath, amssymb, datetime, calculator, enumitem, tikz}
+\usepackage[a4paper,margin=1in,landscape]{geometry}
+\usepackage{pgf, fp}
+\usepackage[ngerman]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Zufallsgenerator initialisieren
+\def\TotalSecondsMinute{}%
+\def\TotalSeconds{}%
+\MULTIPLY{\currentminute}{60}{\TotalSecondsMinute}%
+\ADD{\TotalSecondsMinute}{\currentsecond}{\TotalSeconds}%
+\pgfmathsetseed{\TotalSeconds}%
+% Globale Variablen
+\pgfmathsetmacro{\Aglob}{random(30,100)}
+\pgfmathsetmacro{\Bglob}{random(1,30)}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\neweqone{
+    \pgfmathsetmacro{\A}{random(1,10)}
+    \pgfmathsetmacro{\B}{random(1,10)}
+    \MULTIPLY{\A}{10}{\A}
+    \MULTIPLY{\B}{10}{\B}
+    \FPtrunc\A{\A}{0}
+    \FPtrunc\B{\B}{0}
+    \ifnum\A<\B 
+        $\B - \A = $ 
+    \else 
+        $\A - \B = $ 
+    \fi 
+}
+\newcommand\neweqtwo{
+    % \pgfmathsetmacro{\A}{random(1,10)}
+    \pgfmathsetmacro{\B}{random(1,30)}
+    \ADD{\Aglob}{0}{\A}
+    %\ADD{\Bglob}{1}{\B}
+    \FPtrunc\A{\A}{0}
+    \FPtrunc\B{\B}{0}
+    \ifnum\A<\B 
+        $\B - \A = $ 
+    \else 
+        $\A - \B = $ 
+    \fi 
+}
+\newcommand\neweqthree{
+    \pgfmathsetmacro{\A}{random(30,100)}
+    %\pgfmathsetmacro{\B}{random(1,30)}
+    %\ADD{\Aglob}{0}{\A}
+    \ADD{\Bglob}{0}{\B}
+    \FPtrunc\A{\A}{0}
+    \FPtrunc\B{\B}{0}
+    \ifnum\A<\B 
+        $\B - \A = $ 
+    \else 
+        $\A - \B = $ 
+    \fi 
+}
+\newcommand\neweqfive{
+    \pgfmathsetmacro{\A}{random(1,100)}
+    \pgfmathsetmacro{\B}{random(1,10)}
+    \FPtrunc\A{\A}{0}
+    \FPtrunc\B{\B}{0}
+    \ifnum\A<\B 
+        $\B - \A = $ 
+    \else 
+        $\A - \B = $ 
+    \fi 
+}
+\newcommand\neweqsix{
+    \pgfmathsetmacro{\A}{random(1,100)}
+    \pgfmathsetmacro{\B}{random(1,100)}
+    \FPtrunc\A{\A}{0}
+    \FPtrunc\B{\B}{0}
+    \ifnum\A<\B 
+        $\B - \A = $ 
+    \else 
+        $\A - \B = $ 
+    \fi 
+}
+\newcommand\myeqrow[1]
+{
+    \begin{tabular}{ p{\myspace} }
+            #1 \\
+            #1 \\
+            #1 \\
+            #1 \\
+            #1 \\
+            #1 
+    \end{tabular}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{
+    \bf Schnelles Rechnen Subtraktion
+    \date{\today} 
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\maketitle
+
+\def\myspace{5cm}
+\begin{center}
+    \myeqrow{\neweqone}
+    \myeqrow{\neweqtwo}
+    \myeqrow{\neweqthree}
+\end{center}
+
+\begin{center}
+    \myeqrow{\neweqfive}
+    \myeqrow{\neweqsix}
+    \myeqrow{\neweqsix}
+\end{center}
+
+
+\end{document}

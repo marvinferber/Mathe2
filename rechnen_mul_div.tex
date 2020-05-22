@@ -1,0 +1,139 @@
+% Autor: Marvin Ferber
+\documentclass[14pt,ngerman]{extarticle}
+\usepackage{amsmath, amssymb, datetime, calculator, enumitem, tikz}
+\usepackage[a4paper,margin=1in,landscape]{geometry}
+\usepackage{pgf, fp}
+\usepackage[ngerman]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Zufallsgenerator initialisieren
+\def\TotalSecondsMinute{}%
+\def\TotalSeconds{}%
+\MULTIPLY{\currentminute}{60}{\TotalSecondsMinute}%
+\ADD{\TotalSecondsMinute}{\currentsecond}{\TotalSeconds}%
+\pgfmathsetseed{\TotalSeconds}%
+% Globale Variablen
+\pgfmathsetmacro{\Aglob}{random(2,5)}
+\pgfmathsetmacro{\Bglob}{random(2,5)}
+\pgfmathsetmacro{\Cglob}{random(2,5)}
+\pgfmathsetmacro{\Dglob}{random(1,8)}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\neweqthree{
+    \pgfmathsetmacro{\A}{random(1,5)}
+    \pgfmathsetmacro{\B}{random(1,5)}
+    %\MULTIPLY{\A}{10}{\A}
+    %\MULTIPLY{\B}{10}{\B}
+    \FPtrunc\A{\A}{0}
+    \FPtrunc\B{\B}{0}
+    %\ifnum\A<\B 
+    %    $\B \cdot \A = $ 
+    %\else 
+        $\A \cdot \B = $ 
+    %\fi 
+}
+\newcommand\neweqone{
+    % \pgfmathsetmacro{\A}{random(1,10)}
+    \pgfmathsetmacro{\B}{random(0,7)}
+    \ADD{\Aglob}{0}{\A}
+    %\ADD{\Bglob}{1}{\B}
+    \FPtrunc\A{\A}{0}
+    \FPtrunc\B{\B}{0}
+    %\ifnum\A<\B 
+    %    $\B - \A = $ 
+    %\else 
+        $\A \cdot \B = $ 
+    %\fi 
+}
+\newcommand\neweqtwo{
+    \pgfmathsetmacro{\A}{random(0,7)}
+    %\pgfmathsetmacro{\B}{random(1,30)}
+    %\ADD{\Aglob}{0}{\A}
+    \ADD{\Bglob}{0}{\B}
+    \FPtrunc\A{\A}{0}
+    \FPtrunc\B{\B}{0}
+    %\ifnum\A<\B 
+    %    $\B - \A = $ 
+    %\else 
+        $\A \cdot 10 = $ 
+    %\fi 
+}
+\newcommand\neweqseven{
+    \pgfmathsetmacro{\A}{random(1,5)}
+    \pgfmathsetmacro{\B}{random(1,5)}
+    \pgfmathsetmacro{\P}{1}
+    \MULTIPLY{\A}{\B}{\P}
+    %\MULTIPLY{\B}{10}{\B}
+    \FPtrunc\A{\A}{0}
+    \FPtrunc\B{\B}{0}
+    \FPtrunc\P{\P}{0}
+    %\ifnum\A<\B 
+    %    $\B \cdot \A = $ 
+    %\else 
+        $\P : \A = $ 
+    %\fi 
+}
+\newcommand\neweqfive{
+    \pgfmathsetmacro{\P}{1}
+    \pgfmathsetmacro{\B}{random(2,5)}
+    \ADD{\Cglob}{0}{\A}
+    \MULTIPLY{\A}{\B}{\P}
+    \FPtrunc\A{\A}{0}
+    \FPtrunc\B{\B}{0}
+    \FPtrunc\P{\P}{0}
+    %\ifnum\A<\B 
+    %    $\B - \A = $ 
+    %\else 
+        $\P : \A = $ 
+    %\fi 
+}
+\newcommand\neweqsix{
+    \pgfmathsetmacro{\P}{1}
+    \pgfmathsetmacro{\A}{random(0,8)}
+    \ADD{\Dglob}{0}{\B}
+    \MULTIPLY{\A}{\B}{\P}
+    \FPtrunc\A{\A}{0}
+    \FPtrunc\B{\B}{0}
+    \FPtrunc\P{\P}{0}
+    %\ifnum\A<\B 
+    %    $\B - \A = $ 
+    %\else 
+        $\P : \B = $ 
+    %\fi 
+}
+\newcommand\myeqrow[1]
+{
+    \begin{tabular}{ p{\myspace} }
+            #1 \\
+            #1 \\
+            #1 \\
+            #1 \\
+            #1 \\
+            #1 
+    \end{tabular}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{
+    \bf Schnelles Rechnen Multiplikation und Division
+    \date{\today} 
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\maketitle
+
+\def\myspace{5cm}
+\begin{center}
+    \myeqrow{\neweqone}
+    \myeqrow{\neweqtwo}
+    \myeqrow{\neweqthree}
+\end{center}
+
+\begin{center}
+    \myeqrow{\neweqfive}
+    \myeqrow{\neweqsix}
+    \myeqrow{\neweqseven}
+\end{center}
+
+
+\end{document}

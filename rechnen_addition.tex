@@ -1,0 +1,106 @@
+% Autor: Marvin Ferber
+\documentclass[14pt,ngerman]{extarticle}
+\usepackage{amsmath, amssymb, datetime, calculator, enumitem, tikz}
+\usepackage[a4paper,margin=1in,landscape]{geometry}
+\usepackage{pgf, fp}
+\usepackage[ngerman]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Zufallsgenerator initialisieren
+\def\TotalSecondsMinute{}%
+\def\TotalSeconds{}%
+\MULTIPLY{\currentminute}{60}{\TotalSecondsMinute}%
+\ADD{\TotalSecondsMinute}{\currentsecond}{\TotalSeconds}%
+\pgfmathsetseed{\TotalSeconds}%
+% Globale Variablen
+\pgfmathsetmacro{\Aglob}{random(1,70)}
+\pgfmathsetmacro{\Bglob}{random(1,30)}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\neweqone{
+    %\pgfmathsetmacro{\A}{random(-10,-1)}
+    \pgfmathsetmacro{\A}{random(1,9)}
+    \pgfmathsetmacro{\B}{random(10,100)}
+    \MULTIPLY{\A}{-1}{\A}
+    \ADD{\B}{\A}{\C}
+    \MULTIPLY{\A}{-1}{\A}
+    \FPtrunc\A{\A}{0}
+    \FPtrunc\B{\B}{0}
+    \FPtrunc\C{\C}{0}
+    $\C + \A = $ 
+}
+\newcommand\neweqfour{
+    \pgfmathsetmacro{\A}{random(1,9)}
+    \pgfmathsetmacro{\B}{random(1,9)}
+    \FPtrunc\A{\A}{0}
+    \FPtrunc\B{\B}{0}
+    $\B + \A = $ 
+}
+\newcommand\neweqtwo{
+    % \pgfmathsetmacro{\A}{random(1,10)}
+    \pgfmathsetmacro{\B}{random(1,30)}
+    \ADD{\Aglob}{0}{\A}
+    %\ADD{\Bglob}{1}{\B}
+    \FPtrunc\A{\A}{0}
+    \FPtrunc\B{\B}{0}
+    $\A + \B = $  
+}
+\newcommand\neweqthree{
+    \pgfmathsetmacro{\A}{random(1,70)}
+    %\pgfmathsetmacro{\B}{random(1,30)}
+    %\ADD{\Aglob}{0}{\A}
+    \ADD{\Bglob}{0}{\B}
+    \FPtrunc\A{\A}{0}
+    \FPtrunc\B{\B}{0}
+    $\A + \B = $  
+}
+\newcommand\neweqfive{
+    \pgfmathsetmacro{\A}{random(5,25)}
+    \pgfmathsetmacro{\B}{random(5,25)}
+    \FPtrunc\A{\A}{0}
+    \FPtrunc\B{\B}{0}
+    $\A + \B = $  
+}
+\newcommand\neweqsix{
+    \pgfmathsetmacro{\A}{random(21,50)}
+    \pgfmathsetmacro{\B}{random(21,50)}
+    \FPtrunc\A{\A}{0}
+    \FPtrunc\B{\B}{0}
+    $\A + \B = $  
+}
+\newcommand\myeqrow[1]
+{
+    \begin{tabular}{ p{\myspace} }
+            #1 \\
+            #1 \\
+            #1 \\
+            #1 \\
+            #1 \\
+            #1 
+    \end{tabular}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{
+    \bf Schnelles Rechnen Addition
+    \date{\today} 
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\maketitle
+
+\def\myspace{5cm}
+\begin{center}
+    \myeqrow{\neweqfour}
+    \myeqrow{\neweqone}
+    \myeqrow{\neweqtwo}
+\end{center}
+
+\begin{center}
+    \myeqrow{\neweqthree}
+    \myeqrow{\neweqfive}
+    \myeqrow{\neweqsix}
+\end{center}
+
+
+\end{document}
